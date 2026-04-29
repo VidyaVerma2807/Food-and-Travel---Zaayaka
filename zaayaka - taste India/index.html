@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Zaayaka — Taste India</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,300;1,9..144,700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav>
+  <div class="logo" onclick="showPage('home')">Zaa<span class="dot"></span>yaka</div>
+  <ul class="nav-center">
+    <li><a onclick="showPage('home')" data-page="home">Explore</a></li>
+    <li><a onclick="goTravel()" data-page="travel">Travel</a></li>
+    <li><a onclick="showPage('about')" data-page="about">About</a></li>
+    <li><a onclick="showPage('contact')" data-page="contact">Contact</a></li>
+  </ul>
+  <div class="nav-right">
+    <button class="nav-search-btn" onclick="openSearch()" title="Search">
+      <svg width="15" height="15" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="8.5" cy="8.5" r="6"/><path d="M14 14l4 4"/></svg>
+    </button>
+    <a class="nav-login" onclick="showPage('login')">Sign in</a>
+    <button class="nav-cta" onclick="showPage('signup')">Join Free →</button>
+    <button class="nav-burger" onclick="toggleMobileMenu()" id="nav-burger">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<div class="mobile-menu" id="mobile-menu">
+  <a onclick="showPage('home');closeMobileMenu()">🇮🇳 Explore <span>›</span></a>
+  <a onclick="goTravel();closeMobileMenu()">✈ Travel Guides <span>›</span></a>
+  <a onclick="showPage('about');closeMobileMenu()">👋 About <span>›</span></a>
+  <a onclick="showPage('contact');closeMobileMenu()">💬 Contact <span>›</span></a>
+  <a onclick="openSearch();closeMobileMenu()">🔍 Search <span>›</span></a>
+  <a onclick="showPage('login');closeMobileMenu()">🔑 Sign In <span>›</span></a>
+  <a onclick="showPage('signup');closeMobileMenu()" style="color:var(--saffron);font-weight:500">Join Free →</a>
+</div>
+
+<div class="search-overlay" id="search-overlay">
+  <div class="search-box">
+    <div class="search-inner">
+      <svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="8.5" cy="8.5" r="6"/><path d="M14 14l4 4"/></svg>
+      <input id="search-input" placeholder="Search dishes, cities, regions…" oninput="doSearch(this.value)" onkeydown="if(event.key==='Escape')closeSearch()">
+      <button class="search-close" onclick="closeSearch()">✕</button>
+    </div>
+    <div class="search-results" id="search-results">
+      <div class="sr-empty">Start typing to search 260+ dishes and destinations…</div>
+    </div>
+  </div>
+</div>
+
+<!-- HOME PAGE -->
+<div class="page active" id="page-home">
+  <section class="hero">
+    <div class="hero-chip"><span></span>India Food &amp; Travel Guide</div>
+    <h1 class="hero-h1">Taste the <span class="italic">Soul of India</span>,<br>City by City</h1>
+    <p class="hero-desc">From Mumbai's sizzling street corners to Kerala's coconut-kissed breakfasts — your ultimate guide to India's most iconic dishes and culinary adventures.</p>
+    <div class="hero-btns">
+      <button class="btn-primary" onclick="document.getElementById('dishes-sec').scrollIntoView({behavior:'smooth'})">Explore Dishes 🍛</button>
+      <button class="btn-ghost" onclick="goTravel()">Plan a Trip <svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 8h10M9 4l4 4-4 4"/></svg></button>
+    </div>
+    <div class="hero-photos">
+      <div class="hphoto" onclick="openModal(0)"><img class="hphoto-img" src="https://images.unsplash.com/photo-1606491956689-2ea866880c84?w=600&q=80" alt="Vada Pav"><span class="hphoto-tag">🍔 Vada Pav · Mumbai</span></div>
+      <div class="hphoto" onclick="openModal(4)"><img class="hphoto-img" src="https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?w=900&q=80" alt="Biryani"><span class="hphoto-tag">🍚 Biryani · Hyderabad</span></div>
+      <div class="hphoto" onclick="openModal(2)"><img class="hphoto-img" src="https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=600&q=80" alt="Kathi Roll"><span class="hphoto-tag">🌯 Kathi Roll · Kolkata</span></div>
+    </div>
+  </section>
+
+  <div class="marquee-wrap">
+    <div class="marquee-track">
+      <span class="mitem">Vada Pav<span class="mdot"></span></span><span class="mitem">Biryani<span class="mdot"></span></span><span class="mitem">Kathi Roll<span class="mdot"></span></span><span class="mitem">Galouti Kebab<span class="mdot"></span></span><span class="mitem">Amritsari Kulcha<span class="mdot"></span></span><span class="mitem">Idli &amp; Filter Kaapi<span class="mdot"></span></span><span class="mitem">Dal Baati Churma<span class="mdot"></span></span><span class="mitem">Dhokla<span class="mdot"></span></span><span class="mitem">Misal Pav<span class="mdot"></span></span><span class="mitem">Appam &amp; Stew<span class="mdot"></span></span>
+      <span class="mitem">Vada Pav<span class="mdot"></span></span><span class="mitem">Biryani<span class="mdot"></span></span><span class="mitem">Kathi Roll<span class="mdot"></span></span><span class="mitem">Galouti Kebab<span class="mdot"></span></span><span class="mitem">Amritsari Kulcha<span class="mdot"></span></span><span class="mitem">Idli &amp; Filter Kaapi<span class="mdot"></span></span><span class="mitem">Dal Baati Churma<span class="mdot"></span></span><span class="mitem">Dhokla<span class="mdot"></span></span><span class="mitem">Misal Pav<span class="mdot"></span></span><span class="mitem">Appam &amp; Stew<span class="mdot"></span></span>
+    </div>
+  </div>
+
+  <section class="regions-section">
+    <div class="sec-header">
+      <div><div class="sec-kicker">Explore by Region</div><h2 class="sec-title">Four Corners,<br><em>Infinite Flavours</em></h2></div>
+      <button class="view-all-btn" onclick="document.getElementById('dishes-sec').scrollIntoView({behavior:'smooth'})">View all dishes →</button>
+    </div>
+    <div class="regions-grid">
+      <div class="rcard" onclick="filterRegion('north')"><img class="rcard-img" src="https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?w=700&q=80" alt="North India"><div class="rcard-overlay"></div><div class="rcard-content"><div class="rcard-region">Region</div><div class="rcard-name">North India</div><div class="rcard-count">5 iconic dishes</div></div><span class="rcard-tag" style="background:var(--teal)">🌶 Spicy</span></div>
+      <div class="rcard" onclick="filterRegion('south')"><img class="rcard-img" src="https://images.unsplash.com/photo-1610192244261-3f33de3f55e4?w=700&q=80" alt="South India"><div class="rcard-overlay"></div><div class="rcard-content"><div class="rcard-region">Region</div><div class="rcard-name">South India</div><div class="rcard-count">3 iconic dishes</div></div><span class="rcard-tag" style="background:#2EAA6E">🥥 Coconut</span></div>
+      <div class="rcard" onclick="filterRegion('east')"><img class="rcard-img" src="https://images.unsplash.com/photo-1574484284002-952d92456975?w=700&q=80" alt="East India"><div class="rcard-overlay"></div><div class="rcard-content"><div class="rcard-region">Region</div><div class="rcard-name">East India</div><div class="rcard-count">2 iconic dishes</div></div><span class="rcard-tag" style="background:var(--rose)">🐟 Fresh</span></div>
+      <div class="rcard" onclick="filterRegion('west')"><img class="rcard-img" src="https://images.unsplash.com/photo-1601050690597-df0568f70950?w=700&q=80" alt="West India"><div class="rcard-overlay"></div><div class="rcard-content"><div class="rcard-region">Region</div><div class="rcard-name">West India</div><div class="rcard-count">3 iconic dishes</div></div><span class="rcard-tag" style="background:var(--saffron)">🌿 Tangy</span></div>
+    </div>
+  </section>
+
+  <section class="dishes-section" id="dishes-sec">
+    <div class="sec-header" style="margin-bottom:20px">
+      <div><div class="sec-kicker">The Collection</div><h2 class="sec-title">Iconic Dishes of <em>India</em></h2></div>
+    </div>
+    <div class="filter-tabs">
+      <button class="ftab on" data-f="all">🇮🇳 All India</button>
+      <button class="ftab" data-f="north">🌶 North</button>
+      <button class="ftab" data-f="south">🥥 South</button>
+      <button class="ftab" data-f="east">🌿 East</button>
+      <button class="ftab" data-f="west">🌊 West</button>
+      <button class="ftab" data-f="veg">🟢 Veg Only</button>
+    </div>
+    <div class="dishes-grid" id="dishes-grid"></div>
+  </section>
+
+  <div class="quote-break">
+    <div class="qb-icon">🍲</div>
+    <div class="qb-text">
+      <div class="qb-quote">"India is not a country you visit — it is a country you taste, lane by lane, city by city, bite by bite."</div>
+      <div class="qb-attr">— The Zaayaka Manifesto</div>
+    </div>
+    <div style="text-align:right;flex-shrink:0"><button class="nav-cta" onclick="showPage('signup')" style="white-space:nowrap">Start your journey →</button></div>
+  </div>
+  <div id="home-footer"></div>
+</div>
+
+<!-- TRAVEL PAGE -->
+<div class="page" id="page-travel">
+  <div class="travel-hero">
+    <div class="travel-hero-inner">
+      <div class="sec-kicker">Food &amp; Travel Guides</div>
+      <h1 class="sec-title" style="font-size:clamp(34px,5vw,60px);margin-bottom:14px">Plan Your <em>Culinary Journey</em></h1>
+      <p style="font-size:15px;color:var(--ink3);line-height:1.75;font-weight:300;max-width:560px">Hand-crafted city guides, multi-day itineraries, and insider tips from locals. Find the best time to visit and what to eat when you get there.</p>
+    </div>
+  </div>
+  <div class="travel-grid" style="padding-top:48px;padding-bottom:0">
+    <div class="sec-kicker" style="grid-column:1/-1">Featured Destinations</div>
+  </div>
+  <div class="travel-grid" id="travel-cards-grid" style="padding-bottom:48px"></div>
+  <section class="itin-section" style="padding-top:0">
+    <div class="sec-header" style="margin-bottom:0">
+      <div><div class="sec-kicker">Ready-made Itineraries</div><h2 class="sec-title">Trip Plans, <em>Done for You</em></h2></div>
+    </div>
+    <div class="itin-grid">
+      <div class="itin-card"><div class="itin-days">7 Days</div><div class="itin-title">The Golden Triangle Food Trail</div><div class="itin-desc">Delhi's kebabs and chole bhature → Agra's petha and Mughlai → Jaipur's dal baati and ghevar. Three cities, one unforgettable week.</div><div class="itin-tags"><span class="itin-tag">North India</span><span class="itin-tag">Heritage</span><span class="itin-tag">Street Food</span></div></div>
+      <div class="itin-card"><div class="itin-days">5 Days</div><div class="itin-title">South India Breakfast Circuit</div><div class="itin-desc">Chennai idli → Pondicherry cafés → Madurai kari dosas → Kochi appam and stew. The most important meal of the day, five ways.</div><div class="itin-tags"><span class="itin-tag">South India</span><span class="itin-tag">Vegetarian</span><span class="itin-tag">Coastal</span></div></div>
+      <div class="itin-card"><div class="itin-days">4 Days</div><div class="itin-title">Mumbai to Pune Weekend Feast</div><div class="itin-desc">Friday vada pav and pav bhaji at Dadar → Saturday misal in Pune → Sunday kolhapuri tambda rassa → Monday back in Mumbai, fuller than ever.</div><div class="itin-tags"><span class="itin-tag">West India</span><span class="itin-tag">Short Break</span><span class="itin-tag">Spicy</span></div></div>
+      <div class="itin-card"><div class="itin-days">10 Days</div><div class="itin-title">Taste of Bengal &amp; Odisha</div><div class="itin-desc">Kolkata kathi rolls and mishti doi → Bishnupur's temples and patishapta → Puri's beachside chaat → Bhubaneswar's dahibara.</div><div class="itin-tags"><span class="itin-tag">East India</span><span class="itin-tag">Culture</span><span class="itin-tag">Sweets</span></div></div>
+    </div>
+  </section>
+  <div id="travel-footer"></div>
+</div>
+
+<!-- ABOUT PAGE -->
+<div class="page" id="page-about">
+  <div class="about-hero" style="padding-bottom:56px">
+    <div class="about-hero-inner">
+      <div class="sec-kicker">Our Story</div>
+      <h1 class="sec-title" style="font-size:clamp(34px,5vw,60px);margin-bottom:16px">We Believe Food is <em>India's Greatest Story</em></h1>
+      <p style="font-size:15px;color:var(--ink3);line-height:1.8;font-weight:300">Zaayaka was born in a Mumbai kitchen in 2022, from a simple argument: which city has the best street food? Three friends, zero agreement, and thousands of kilometres of eating later — this guide exists.</p>
+    </div>
+  </div>
+  <div class="about-body">
+    <div class="sec-kicker">What we do</div>
+    <h2 class="sec-title" style="margin-bottom:16px">Your Honest, <em>Independent</em> Food Guide</h2>
+    <p style="font-size:14px;color:var(--ink2);line-height:1.85;font-weight:300;max-width:640px">We don't accept advertising. We don't take commissions from restaurants. Every dish, every spot, every city guide is researched in person by our team of food journalists and regional correspondents who actually live in these cities.</p>
+    <div class="about-grid">
+      <div class="about-card"><div class="about-icon">🔍</div><div class="about-card-title">Verified Picks</div><div class="about-card-desc">Every restaurant and street food spot is visited, eaten at, and fact-checked by a local correspondent before it appears on Zaayaka.</div></div>
+      <div class="about-card"><div class="about-icon">🚫</div><div class="about-card-title">Zero Paid Content</div><div class="about-card-desc">We accept no sponsorships, advertorial content, or placement fees. If it's on Zaayaka, it earned its place on taste alone.</div></div>
+      <div class="about-card"><div class="about-icon">🗺</div><div class="about-card-title">Deep Regional Focus</div><div class="about-card-desc">We go beyond butter chicken. Our guides cover 34 states, 180+ regional cuisines, and sub-regional variations most guides miss entirely.</div></div>
+    </div>
+  </div>
+  <div class="team-section">
+    <div class="sec-kicker">The Team</div>
+    <h2 class="sec-title" style="margin-bottom:4px">The Eaters <em>Behind it All</em></h2>
+    <div class="team-grid">
+      <div class="team-card"><div class="team-avatar">👩‍🍳</div><div class="team-name">Priya Menon</div><div class="team-role">Founder &amp; Editor</div><div class="team-bio">Former food critic at Mint Lounge. Grew up eating Kerala sadya. Has opinions about biryani that will make you uncomfortable.</div></div>
+      <div class="team-card"><div class="team-avatar">📸</div><div class="team-name">Arjun Das</div><div class="team-role">Photography &amp; North India</div><div class="team-bio">Documentary photographer from Kolkata. Spent two years on a dhaba-to-dhaba road trip from J&K to Bengal. Eats with his camera first.</div></div>
+      <div class="team-card"><div class="team-avatar">✍️</div><div class="team-name">Sneha Kulkarni</div><div class="team-role">West India &amp; Recipes</div><div class="team-bio">Pune native, culinary school graduate, and the person who finally convinced the world that Maharashtrian food is criminally underrated.</div></div>
+    </div>
+  </div>
+  <div id="about-footer"></div>
+</div>
+
+<!-- CONTACT PAGE -->
+<div class="page" id="page-contact">
+  <div class="contact-wrap">
+    <div class="contact-l">
+      <div class="sec-kicker">Get in Touch</div>
+      <h1 class="sec-title" style="font-size:clamp(28px,4vw,48px);margin-bottom:14px">We'd love to <em>hear from you</em></h1>
+      <p style="font-size:14px;color:var(--ink2);line-height:1.85;font-weight:300;margin-bottom:28px">Whether you have a dish to suggest, a spot we've missed, a correction, or just want to talk food — our inbox is always open.</p>
+      <div style="display:flex;flex-direction:column;gap:18px;margin-bottom:32px">
+        <div><div class="sec-kicker" style="margin-bottom:4px">Editorial</div><p style="font-size:14px;color:var(--ink2)">hello@zaayaka.in</p></div>
+        <div><div class="sec-kicker" style="margin-bottom:4px">Press &amp; Partnerships</div><p style="font-size:14px;color:var(--ink2)">press@zaayaka.in</p></div>
+        <div><div class="sec-kicker" style="margin-bottom:4px">Based in</div><p style="font-size:14px;color:var(--ink2)">Mumbai, Maharashtra · India</p></div>
+      </div>
+      <div class="sec-kicker" style="margin-bottom:12px">Follow our journey</div>
+      <div class="social-links">
+        <a class="social-btn" href="https://instagram.com" target="_blank">📸 Instagram</a>
+        <a class="social-btn" href="https://twitter.com" target="_blank">𝕏 Twitter / X</a>
+        <a class="social-btn" href="https://youtube.com" target="_blank">▶ YouTube</a>
+        <a class="social-btn" href="https://facebook.com" target="_blank">fb Facebook</a>
+      </div>
+    </div>
+    <div class="contact-r">
+      <div class="sec-kicker">Send a Message</div>
+      <h2 class="sec-title" style="font-size:clamp(22px,2.5vw,32px);margin-bottom:24px">Drop us a note</h2>
+      <div style="display:flex;flex-direction:column;gap:16px">
+        <div class="sp-grp"><label class="sp-lbl">Your Name</label><input class="sp-inp" placeholder="Rahul Sharma" id="ct-name"></div>
+        <div class="sp-grp"><label class="sp-lbl">Email</label><input class="sp-inp" type="email" placeholder="rahul@example.com" id="ct-email"></div>
+        <div class="sp-grp"><label class="sp-lbl">Subject</label>
+          <select class="sp-sel" id="ct-sub">
+            <option disabled selected value="">What's this about?</option>
+            <option>Suggest a dish or restaurant</option>
+            <option>Report an error</option>
+            <option>Press inquiry</option>
+            <option>Partnership</option>
+            <option>General feedback</option>
+          </select>
+        </div>
+        <div class="sp-grp"><label class="sp-lbl">Message</label><textarea class="sp-inp" rows="5" placeholder="Tell us everything…" id="ct-msg" style="resize:vertical"></textarea></div>
+        <div class="sp-err" id="ct-err"></div>
+        <button class="sp-submit" onclick="doContact()">Send Message →</button>
+        <div class="sp-success" id="ct-success" style="padding:16px 0">
+          <div style="font-size:32px">✅</div>
+          <div class="sp-suc-h" style="font-size:22px">Message sent!</div>
+          <p class="sp-suc-p">We read every message and usually reply within 48 hours.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="contact-footer"></div>
+</div>
+
+<!-- LOGIN PAGE -->
+<div class="page" id="page-login">
+  <div class="login-wrap">
+    <div class="login-card">
+      <div class="login-icon">🍛</div>
+      <div class="login-title">Welcome back</div>
+      <p class="login-sub">Sign in to your Zaayaka account to continue your culinary journey.</p>
+      <div class="login-form">
+        <div class="sp-grp"><label class="sp-lbl">Email Address</label><input class="sp-inp" type="email" id="li-em" placeholder="priya@example.com"></div>
+        <div class="sp-grp">
+          <div style="display:flex;justify-content:space-between;align-items:center"><label class="sp-lbl">Password</label><span class="sp-forgot" onclick="showPage('forgot')">Forgot password?</span></div>
+          <input class="sp-inp" type="password" id="li-pw" placeholder="Your password">
+        </div>
+        <div class="sp-err" id="li-err"></div>
+        <button class="sp-submit" onclick="doLogin()">Sign In →</button>
+        <div class="login-hr"><div class="login-hr-line"></div><span class="login-hr-txt">don't have an account?</span><div class="login-hr-line"></div></div>
+        <div class="login-footer">New to Zaayaka? <a onclick="showPage('signup')">Create a free account</a></div>
+        <div class="login-footer" style="margin-top:6px"><a onclick="showPage('home')">← Back to exploring</a></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FORGOT PASSWORD PAGE -->
+<div class="page" id="page-forgot">
+  <div class="login-wrap">
+    <div class="forgot-card">
+      <div class="fp-back" onclick="showPage('login')">← Back to sign in</div>
+      <div class="login-icon" style="font-size:20px">🔑</div>
+      <div class="login-title">Reset password</div>
+      <p class="login-sub">Enter the email address on your account and we'll send you a reset link.</p>
+      <div id="fp-form" style="display:flex;flex-direction:column;gap:14px">
+        <div class="sp-grp"><label class="sp-lbl">Email Address</label><input class="sp-inp" type="email" id="fp-em" placeholder="priya@example.com"></div>
+        <div class="sp-err" id="fp-err"></div>
+        <button class="sp-submit" onclick="doForgot()">Send Reset Link →</button>
+      </div>
+      <div class="fp-sent" id="fp-sent">
+        <div style="font-size:36px">📬</div>
+        <div class="sp-suc-h" style="font-size:22px">Check your inbox</div>
+        <p class="sp-suc-p">We've sent a password reset link to your email. Check spam if it doesn't arrive within a minute.</p>
+        <button class="sp-suc-btn" onclick="showPage('login')">Back to Sign In</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SIGNUP PAGE -->
+<div class="page" id="page-signup">
+  <div class="signup-page">
+    <div class="sp-l">
+      <img class="sp-l-img" src="https://images.unsplash.com/photo-1596797038530-2c107229654b?w=1000&q=80" alt="Indian spices">
+      <div class="sp-l-grad"></div>
+      <div class="sp-l-content">
+        <div>
+          <div class="sp-l-logo" onclick="showPage('home')">Zaa<span>yaka</span></div>
+          <div class="sp-l-h">Join India's<br><em>biggest food &amp;</em><br>travel community</div>
+          <p class="sp-l-sub">Get personalised guides, hidden food gems, and regional recipes — for free.</p>
+          <div class="sp-perks">
+            <div><div class="sp-perk-pill"><span>📬</span> Weekly city food guides</div></div>
+            <div><div class="sp-perk-pill"><span>📍</span> Hidden gems &amp; local picks</div></div>
+            <div><div class="sp-perk-pill"><span>🍳</span> Regional recipes from home kitchens</div></div>
+            <div><div class="sp-perk-pill"><span>🗺</span> Exclusive travel itineraries</div></div>
+          </div>
+        </div>
+        <div class="sp-l-bottom">© 2025 Zaayaka · Free forever, no credit card needed</div>
+      </div>
+    </div>
+    <div class="sp-r">
+      <div class="sp-r-inner">
+        <div id="sp-form-wrap">
+          <div class="sp-kicker">Create your account</div>
+          <div class="sp-title">Welcome to Zaayaka</div>
+          <p class="sp-sub">Start exploring India's iconic food culture — it's completely free.</p>
+          <div class="sp-form">
+            <div class="sp-row">
+              <div class="sp-grp"><label class="sp-lbl" for="sp-fn">First Name</label><input class="sp-inp" type="text" id="sp-fn" placeholder="Priya"></div>
+              <div class="sp-grp"><label class="sp-lbl" for="sp-ln">Last Name</label><input class="sp-inp" type="text" id="sp-ln" placeholder="Sharma"></div>
+            </div>
+            <div class="sp-grp"><label class="sp-lbl" for="sp-em">Email Address</label><input class="sp-inp" type="email" id="sp-em" placeholder="priya@example.com"></div>
+            <div class="sp-grp"><label class="sp-lbl" for="sp-pw">Password</label><input class="sp-inp" type="password" id="sp-pw" placeholder="Min. 8 characters"></div>
+            <div class="sp-grp"><label class="sp-lbl" for="sp-city">Your City</label>
+              <select class="sp-sel" id="sp-city"><option value="" disabled selected>Where are you from?</option><option>Mumbai</option><option>Delhi</option><option>Bangalore</option><option>Chennai</option><option>Kolkata</option><option>Hyderabad</option><option>Pune</option><option>Ahmedabad</option><option>Jaipur</option><option>Kochi</option><option>Other</option></select>
+            </div>
+            <div class="sp-grp">
+              <div class="interest-label">What interests you most?</div>
+              <div class="interest-tags">
+                <span class="itag" onclick="toggleTag(this)">🌶 Street Food</span>
+                <span class="itag" onclick="toggleTag(this)">🍱 Regional Cuisine</span>
+                <span class="itag" onclick="toggleTag(this)">🌿 Vegetarian</span>
+                <span class="itag" onclick="toggleTag(this)">✈ Food Travel</span>
+                <span class="itag" onclick="toggleTag(this)">🍳 Home Cooking</span>
+                <span class="itag" onclick="toggleTag(this)">🎉 Festive Food</span>
+              </div>
+            </div>
+            <div class="sp-check-row">
+              <input class="sp-check" type="checkbox" id="sp-tc">
+              <label class="sp-check-lbl" for="sp-tc">I agree to the <a onclick="showPage('terms')">Terms of Service</a> and <a onclick="showPage('privacy')">Privacy Policy</a></label>
+            </div>
+            <div class="sp-err" id="sp-err"></div>
+            <button class="sp-submit" onclick="doSignup()">Create My Account →</button>
+            <div class="sp-divider"><div class="sp-div-line"></div><span class="sp-div-txt">already a member?</span><div class="sp-div-line"></div></div>
+            <div class="sp-signin">Have an account? <a onclick="showPage('login')">Sign in</a></div>
+          </div>
+        </div>
+        <div class="sp-success" id="sp-success">
+          <div class="sp-suc-ring">🎉</div>
+          <div class="sp-suc-h">You're in!</div>
+          <p class="sp-suc-p">Welcome to Zaayaka. Your culinary journey across India starts right now.</p>
+          <button class="sp-suc-btn" onclick="showPage('home')">Explore Dishes 🍛</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TERMS PAGE -->
+<div class="page" id="page-terms">
+  <div class="legal-wrap">
+    <div class="sec-kicker">Legal</div>
+    <div class="legal-h1">Terms of Service</div>
+    <div class="legal-date">Last updated: January 2025</div>
+    <div class="legal-body">
+      <p>Welcome to Zaayaka. By accessing or using our website and services, you agree to be bound by these Terms of Service. Please read them carefully.</p>
+      <h2>1. Use of the Platform</h2>
+      <p>Zaayaka provides food and travel information for personal, non-commercial use. You may not reproduce, distribute, or create derivative works from our content without explicit written permission.</p>
+      <h2>2. User Accounts</h2>
+      <p>When you create an account, you are responsible for maintaining the security of your credentials. You must be at least 13 years old to create an account.</p>
+      <h2>3. Content Accuracy</h2>
+      <p>While we strive to keep all information accurate and up to date, prices, hours, and availability change frequently. Always verify with the establishment before visiting.</p>
+      <h2>4. Limitation of Liability</h2>
+      <p>Zaayaka is not liable for any dining experiences, travel arrangements, or health outcomes resulting from information on this platform.</p>
+      <h2>5. Changes to Terms</h2>
+      <p>We may update these terms from time to time. Continued use after changes constitutes acceptance. Registered users will be notified by email of significant changes.</p>
+      <h2>6. Contact</h2>
+      <p>For questions about these terms, write to us at legal@zaayaka.in.</p>
+    </div>
+    <div style="margin-top:32px"><button class="btn-ghost" onclick="showPage('signup')">← Back</button></div>
+  </div>
+  <div id="terms-footer"></div>
+</div>
+
+<!-- PRIVACY PAGE -->
+<div class="page" id="page-privacy">
+  <div class="legal-wrap">
+    <div class="sec-kicker">Legal</div>
+    <div class="legal-h1">Privacy Policy</div>
+    <div class="legal-date">Last updated: January 2025</div>
+    <div class="legal-body">
+      <p>At Zaayaka, your privacy matters. This policy explains what data we collect, how we use it, and the choices you have.</p>
+      <h2>1. Data We Collect</h2>
+      <p>When you create an account, we collect your name, email address, and city. We also collect anonymised usage data. We do not collect payment information — Zaayaka is entirely free.</p>
+      <h2>2. How We Use Your Data</h2>
+      <p>Your data is used to send weekly city food guides, personalise recommendations, and improve our platform. We never sell your personal data to third parties.</p>
+      <h2>3. Cookies</h2>
+      <p>We use essential cookies to keep you logged in and remember preferences. Analytics cookies are anonymised. You can opt out of non-essential cookies via your browser settings.</p>
+      <h2>4. Your Rights</h2>
+      <p>You have the right to access, correct, or delete your personal data at any time. Email privacy@zaayaka.in. We respond within 30 days.</p>
+      <h2>5. Data Retention</h2>
+      <p>We retain account data as long as your account is active. Deletion requests are processed within 30 days.</p>
+      <h2>6. Contact</h2>
+      <p>Questions? Write to privacy@zaayaka.in.</p>
+    </div>
+    <div style="margin-top:32px"><button class="btn-ghost" onclick="showPage('signup')">← Back to sign up</button></div>
+  </div>
+  <div id="privacy-footer"></div>
+</div>
+
+<!-- DISH MODAL -->
+<div class="overlay" id="overlay">
+  <div class="modal">
+    <div class="modal-hero">
+      <div class="gallery-strip">
+        <div class="gallery-main"><img id="m-img" src="" alt=""><div class="modal-hgrad"></div></div>
+        <div class="gallery-thumb-col" id="gallery-thumbs"></div>
+      </div>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+      <div class="modal-htext">
+        <div class="modal-hbadge" id="m-badge"></div>
+        <div class="modal-htitle" id="m-title"></div>
+        <div class="modal-hsub" id="m-sub"></div>
+      </div>
+    </div>
+    <div class="modal-body">
+      <div class="modal-rating"><span class="stars" id="m-stars"></span><span class="rating-count" id="m-rating-count"></span></div>
+      <div class="modal-price-row" id="m-price-row"></div>
+      <div class="modal-kicker">About the dish</div>
+      <div class="modal-text" id="m-desc"></div>
+      <hr class="modal-hr">
+      <div class="modal-kicker">Best time to visit</div>
+      <div class="modal-season" id="m-season"></div>
+      <hr class="modal-hr">
+      <div class="modal-kicker">Best spot to try it</div>
+      <div class="modal-spot" id="m-spot"></div>
+      <div class="modal-tags" id="m-tags"></div>
+      <div class="recipe-teaser">
+        <div class="rt-label">🍳 Make it at Home</div>
+        <div class="rt-title" id="m-recipe-title"></div>
+        <div class="rt-desc" id="m-recipe-desc"></div>
+        <div class="rt-link">View recipe preview →</div>
+      </div>
+      <a class="modal-yt" id="m-yt" target="_blank">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="#F4622A"><path d="M23.5 6.2a3 3 0 00-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 00.5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 002.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 002.1-2.1C24 15.9 24 12 24 12s0-3.9-.5-5.8z"/><polygon fill="white" points="9.6,15.6 15.8,12 9.6,8.4"/></svg>
+        Watch on YouTube
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER TEMPLATE -->
+<template id="footer-tpl">
+  <footer>
+    <div class="footer-grid">
+      <div class="f-brand">
+        <div class="f-logo" onclick="showPage('home')">Zaa<span>yaka</span></div>
+        <p class="f-brand-desc">India's independent food and travel guide. No ads, no paid placements — just honest picks from people who eat for a living.</p>
+        <div class="f-social">
+          <a class="f-social-btn" href="https://instagram.com" target="_blank">📸</a>
+          <a class="f-social-btn" href="https://twitter.com" target="_blank">𝕏</a>
+          <a class="f-social-btn" href="https://youtube.com" target="_blank">▶</a>
+          <a class="f-social-btn" href="https://facebook.com" target="_blank">f</a>
+        </div>
+      </div>
+      <div>
+        <div class="f-col-title">Explore</div>
+        <div class="f-links">
+          <a onclick="showPage('home')">All Dishes</a>
+          <a onclick="filterRegion('north')">North India</a>
+          <a onclick="filterRegion('south')">South India</a>
+          <a onclick="filterRegion('east')">East India</a>
+          <a onclick="filterRegion('west')">West India</a>
+        </div>
+      </div>
+      <div>
+        <div class="f-col-title">Travel</div>
+        <div class="f-links">
+          <a onclick="goTravel()">City Guides</a>
+          <a onclick="goTravel()">Itineraries</a>
+          <a onclick="goTravel()">Best Time to Visit</a>
+        </div>
+      </div>
+      <div>
+        <div class="f-col-title">Company</div>
+        <div class="f-links">
+          <a onclick="showPage('about')">About Us</a>
+          <a onclick="showPage('contact')">Contact</a>
+          <a onclick="showPage('terms')">Terms of Service</a>
+          <a onclick="showPage('privacy')">Privacy Policy</a>
+        </div>
+      </div>
+    </div>
+    <div class="f-bottom">
+      <div class="f-copy">© 2025 Zaayaka · India Food &amp; Travel · Made with 🧡 in Mumbai</div>
+      <div class="f-bottom-links">
+        <a onclick="showPage('terms')">Terms</a>
+        <a onclick="showPage('privacy')">Privacy</a>
+        <a onclick="showPage('contact')">Contact</a>
+      </div>
+    </div>
+  </footer>
+</template>
+
+<script src="script.js"></script>
+</body>
+</html>
